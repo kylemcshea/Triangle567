@@ -25,6 +25,8 @@ BEWARE: there may be a bug or two in this code
 """
 def classify_triangle(side1,side2,side3):
     '''Takes in 3 side parematers, returns the classification'''
+    # verify that all 3 inputs are integers  
+    # Python's "isinstance(object,type) returns True if the object is of the specified type
     if not(isinstance(side1,int) and isinstance(side2,int) and isinstance(side3,int)):
         return 'InvalidInput'
     # require that the input values be >= 0 and <= 200
@@ -32,8 +34,6 @@ def classify_triangle(side1,side2,side3):
         return 'InvalidInput'
     if side1 <= 0 or side2 <= 0 or side3 <= 0:
         return 'InvalidInput'
-    # verify that all 3 inputs are integers  
-    # Python's "isinstance(object,type) returns True if the object is of the specified type
     # This information was not in the requirements spec but 
     # is important for correctness
     # the sum of any two sides must be strictly less than the third side
@@ -43,8 +43,14 @@ def classify_triangle(side1,side2,side3):
     # now we know that we have a valid triangle 
     if side1 == side2 and side2 == side3:
         return 'Equilateral'
-    if ((side1 ** 2)+(side2 ** 2))==(side3 ** 2) or ((side2 ** 2)+(side3 ** 2))==(side1 ** 2) or ((side1 ** 2)+(side3 ** 2))==(side2 ** 2):
+    if check_right(side1,side2,side3):
         return 'Right'
     if side2 not in (side1, side3):
         return 'Scalene'
     return 'Isoceles'
+
+def check_right(side1,side2,side3):
+    '''Takes in 3 side parameters and checks if triangle is right'''
+    if ((side1 ** 2)+(side2 ** 2))==(side3 ** 2) or ((side2 ** 2)+(side3 ** 2))==(side1 ** 2) or ((side1 ** 2)+(side3 ** 2))==(side2 ** 2):
+        return True
+    return False
